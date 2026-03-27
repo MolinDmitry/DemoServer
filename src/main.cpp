@@ -22,31 +22,21 @@
 
 using std::cerr;
 
+#include "queryparser.hpp"
+#include "test.hpp"
 
-//============================================================================
-std::vector<std::string> splitString(std::string stringLine){
-    std::vector<std::string> strVector;
 
-    return strVector;
-}
-
-//=============================================================================
-std::vector<std::string> splitString(char* buf, size_t length){
-    std::vector<std::string> strVector;
-    std::string str = "";
-    for(size_t i = 0; i < length; i++){
-        str+= buf[i];
-    }
-    std::stringstream ss(str);
-    for(std::string str; std::getline(ss, str);){
-        strVector.push_back(str);
-    }
-    return strVector;
-}
 
 //==============================================================================
 int main(int argc, char* argv[]){
     std::cout << "Demo simple Web-server" << std::endl;
+
+    //============= Тест 01 =======================================================
+    tests::test01();
+    return 0;
+    //============= Тест 01 =======================================================
+
+
 
     // служебная структура для хранения информации
     // о реализации Windows Sockets
@@ -158,7 +148,9 @@ int main(int argc, char* argv[]){
 
             std::vector<std::string> strVect = splitString(buf, result);
             std::cout << strVect[0] << std::endl;
-            // for(auto line:strVect){
+            // std::vector<std::string> strVect2 = parseQuery(strVect[0]);
+            // std::cout << strVect2[1] << std::endl;
+            // for(auto line:strVect2){
             //     std::cout << line << std::endl;
             // }
 
