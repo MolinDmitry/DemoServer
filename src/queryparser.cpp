@@ -15,25 +15,34 @@ QueryStructTypeDef parseQuery(std::string stringLine){
             strVector.push_back(str);
     }
     std::string queryStr = strVector[1];
-    ss.str(queryStr);
+    std::stringstream ss2(queryStr);
     strVector.clear();
-    for(std::string str; std::getline(ss, str, '?');){
-        if (str != "")
-            strVector.push_back(str);
+    for(std::string str2; std::getline(ss2, str2, '?');){
+        if (str2 != "")
+            strVector.push_back(str2);
     }
     if (strVector.size() == 0){
         outObject.path = "";
     }
     else{
         outObject.path = strVector[0];
-        for(size_t i = 1; i < strVector.size(); i++){
-
-        }        
-
+        std::stringstream ss3(strVector[1]);
+        strVector.clear();
+        for(std::string str3; std::getline(ss3, str3, '&');){
+             strVector.push_back(str3);
+        }
+        for(auto cur_str: strVector){
+            std::stringstream ss4(cur_str);
+            std::vector<std::string> strVector2;
+            for(std::string str4; std::getline(ss4, str4, '=');){
+                strVector2.push_back(str4);
+            }
+            QueryParameterTypeDef cur_param;
+            cur_param.parameterName = strVector2[0];
+            cur_param.value = strVector2[1];
+            outObject.parameters.push_back(cur_param);
+        }       
     }
-    
-    
-
     return outObject;
 }
 
